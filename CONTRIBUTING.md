@@ -8,3 +8,7 @@ locales and preserve the original language of source data and evidence.
 For changes to localized interfaces, verify the English default, explicit locale
 selection, missing-translation fallback, and unchanged source labels. Follow the
 repository's own build, testing, authorization and release instructions.
+
+Use the [independent CI adoption guide](INDEPENDENT_ACTIONS.md) and the pinned
+repository adapter when preparing CI/CD changes. Preserve repository-specific
+validation and publication gates.

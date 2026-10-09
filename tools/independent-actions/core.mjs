@@ -37,5 +37,5 @@ export function verify(envelope, key, identity, now = Date.now()) {
   return envelope.receipt;
 }
 export function executable(entry) {
-  if (entry.state !== 'prepared' || entry.setup.length || !entry.steps.length || !/^(node|python)@sha256:[a-f0-9]{64}$/.test(entry.image)) throw Error(`Profile held: ${entry.state}; ${entry.requiredRuntime.join('; ')}`);
+  if (entry.state !== 'prepared' || entry.setup.some(step => step !== 'npm ci --ignore-scripts --no-audit --no-fund') || !entry.steps.length || !/^(node|python)@sha256:[a-f0-9]{64}$/.test(entry.image)) throw Error(`Profile held: ${entry.state}; ${entry.requiredRuntime.join('; ')}`);
 }

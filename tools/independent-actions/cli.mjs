@@ -58,6 +58,7 @@ try {
         const common=['--rm','--cpus=2','--memory=4g','--pids-limit=256','--cap-drop=ALL','--security-opt=no-new-privileges','--mount',`type=volume,src=${volume},dst=/work`,'-w','/work'];
         const loadArgs=['run','-i',...common,'--network=none',entry.image,'sh','-ec','test "$(df -Pk /work | awk \'NR==2 {print $4}\')" -ge 8388608; tar -xz -C /work'];
         const [loadCmd,loadTransport]=transport(opts.host,loadArgs); run(loadCmd,loadTransport,{input:archive});
+        if(entry.setup.length) docker('run',...common,'--network=bridge',entry.image,'sh','-ec',entry.setup.join('\n'));
         const output=docker('run',...common,'--network=none',entry.image,'sh','-ec',entry.steps.join('\n'));
         const identity={repository,sha,profile:entry.profile,controllerRevision,image:entry.image,recipeDigest:digest(entry),scope:entry.scope};
         const log=join(state,`${digest(identity)}.log`); writeFileSync(log,output,{mode:0o600});

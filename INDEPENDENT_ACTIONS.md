@@ -30,8 +30,10 @@ The controller owns the catalogue's recipes. Prepared profiles use digest-pinned
 Node/Python images, source-only compressed archives, an ephemeral Docker volume,
 no host mounts or injected credentials, no test network, dropped capabilities,
 2 CPU / 4 GiB / 256 PID limits, and at least 8 GiB free container storage.
-Only dependency-free profiles are executable in this first version. Profiles
-requiring install, native or multi-runtime preparation fail closed. Ephemeral
+Dependency-free profiles and graph-viewer with its locked, script-disabled npm
+installation are executable. The latter uses network access only in a separate
+setup container sharing the disposable volume. Native, other installation or
+multi-runtime preparation remains held. Ephemeral
 volumes are removed after each run; no global pruning affects other jobs.
 
 Receipts are private HMAC-signed evidence bound to repository, exact commit,

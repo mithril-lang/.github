@@ -96,14 +96,17 @@
     },
     "mithril-lang/ontology": {
       "profile": "source",
-      "state": "prepared",
+      "state": "runtime-required",
       "scope": "Python Turtle/JSON freshness only; Mithril generation excluded",
       "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
       "setup": [],
       "steps": [
         "python scripts/gen_dm2_ttl.py --check"
       ],
-      "requiredRuntime": [],
+      "requiredRuntime": [
+        "hash-locked edn-format/rdflib wheelhouse",
+        "Mithril generator qualification remains separate"
+      ],
       "release": {
         "state": "held",
         "gates": [

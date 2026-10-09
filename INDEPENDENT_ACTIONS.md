@@ -56,7 +56,7 @@ and execution of latest main.
 | `mithril-lang/fund.mithril.lib.graph-viewer` | prepared | Complete existing Node tests and source syntax checks | Pinned container ready |
 | `mithril-lang/mithril-flight-lab` | prepared | Deterministic engagement tests and local simulation only | Pinned container ready |
 | `mithril-lang/frontier-cyber-index` | prepared | Offline catalog and educational measurement tests | Pinned container ready |
-| `mithril-lang/ontology` | prepared | Python Turtle/JSON freshness only; Mithril generation excluded | Pinned container ready |
+| `mithril-lang/ontology` | runtime-required | Python Turtle/JSON freshness only; Mithril generation excluded | hash-locked edn-format/rdflib wheelhouse; Mithril generator qualification remains separate |
 | `mithril-lang/mithril-fund` | delegated | Existing signed Fund profiles and dedicated service publishers | scripts/standalone-ci.mjs; scripts/independent-actions.mjs |
 | `mithril-lang/design-system` | runtime-required | React type/test/build and Clojure token conformance | digest-pinned Node + Java 21 + Clojure image; offline Maven dependencies; committed React dist comparison |
 | `mithril-lang/mithril-system-one` | runtime-required | Conformance, Python, browsers and dynamic runtime | digest-pinned Node/Python/Playwright runtime; pinned dynamic compiler inputs |

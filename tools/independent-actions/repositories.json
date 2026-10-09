@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "provider": "mithril-independent-actions",
+  "repositories": {
+    "mithril-lang/.github": {
+      "profile": "source",
+      "state": "prepared",
+      "scope": "Organization policy and shared runner contracts",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [],
+      "steps": [
+        "node --test tools/independent-actions/*.test.mjs"
+      ],
+      "requiredRuntime": [],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/fund.mithril.lib.graph-viewer": {
+      "profile": "source",
+      "state": "prepared",
+      "scope": "Complete existing Node tests and source syntax checks",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [],
+      "steps": [
+        "npm test",
+        "npm run check"
+      ],
+      "requiredRuntime": [],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-flight-lab": {
+      "profile": "source",
+      "state": "prepared",
+      "scope": "Deterministic engagement tests and local simulation only",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('tests',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\"",
+        "python engagement/combat.py --out output/combat"
+      ],
+      "requiredRuntime": [],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/frontier-cyber-index": {
+      "profile": "source",
+      "state": "prepared",
+      "scope": "Offline catalog and educational measurement tests",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('scripts',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/ontology": {
+      "profile": "source",
+      "state": "prepared",
+      "scope": "Python Turtle/JSON freshness only; Mithril generation excluded",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [],
+      "steps": [
+        "python scripts/gen_dm2_ttl.py --check"
+      ],
+      "requiredRuntime": [],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-fund": {
+      "profile": "source",
+      "state": "delegated",
+      "scope": "Existing signed Fund profiles and dedicated service publishers",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [],
+      "steps": [],
+      "requiredRuntime": [
+        "scripts/standalone-ci.mjs",
+        "scripts/independent-actions.mjs"
+      ],
+      "release": {
+        "state": "dedicated-publisher",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/design-system": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "React type/test/build and Clojure token conformance",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [
+        "npm ci"
+      ],
+      "steps": [
+        "npm run typecheck",
+        "npm run test:react",
+        "npm run build:react",
+        "git diff --exit-code -- dist/react",
+        "clojure -M:test"
+      ],
+      "requiredRuntime": [
+        "digest-pinned Node + Java 21 + Clojure image",
+        "offline Maven dependencies",
+        "committed React dist comparison"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-system-one": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Conformance, Python, browsers and dynamic runtime",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [
+        "npm ci",
+        "npx playwright install --with-deps chromium firefox webkit",
+        "npm run setup:dynamic"
+      ],
+      "steps": [
+        "npm run test:all",
+        "npm run test:dynamic"
+      ],
+      "requiredRuntime": [
+        "digest-pinned Node/Python/Playwright runtime",
+        "pinned dynamic compiler inputs"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-registry": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Registry/index/plugin checks, System One, killchain and forensic evaluation",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [
+        "python -m pip install -r requirements.txt"
+      ],
+      "steps": [
+        "python scripts/build_index.py --check",
+        "python scripts/package_plugin.py mithril-app --check",
+        "python scripts/package_plugin.py mithril-data-catalog --check",
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('scripts',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [
+        "locked Python wheelhouse",
+        "immutable System One artifact archive",
+        "forensic offline package and platform matrix",
+        "killchain local evaluation"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-desktop": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Desktop lint, type, unit, packaging and native release gates",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [
+        "npm ci"
+      ],
+      "steps": [
+        "npm run lint",
+        "npm run typecheck",
+        "npm test",
+        "npm run check:packaging"
+      ],
+      "requiredRuntime": [
+        "digest-pinned Electron/native dependencies",
+        "production dependency audit",
+        "Windows/Linux/macOS architecture matrix",
+        "macOS signing/notarization and launch",
+        "Windows signing and installer/update checks"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-agent": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Existing Python/Rust/JS/installer/profile and supply-chain matrix",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [],
+      "steps": [],
+      "requiredRuntime": [
+        "locked uv/Python/Rust/Node runtimes",
+        "temporary A-B-A Hermes homes",
+        "native installation/update matrix",
+        "reviewed offline fixtures; live-provider checks separate"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Mithril compiler and native mission/library conformance",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [],
+      "steps": [],
+      "requiredRuntime": [
+        "immutable Kbb/SCI/Amu and EDN inputs",
+        "Java/Clojure/Babashka runtimes",
+        "native HLA and pinned plugin archives"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-app-core": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "App-core repository-specific conformance",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [],
+      "steps": [],
+      "requiredRuntime": [
+        "review current source test/build contract before runtime activation"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/mithril-twin": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Viewer workspace tests, types and static build",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [
+        "npm ci"
+      ],
+      "steps": [
+        "npm test",
+        "npm run typecheck",
+        "npm run build"
+      ],
+      "requiredRuntime": [
+        "locked Node workspace dependencies",
+        "immutable static publication and read-back"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/loop-bench-index": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Clojure benchmark/catalog tests",
+      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+      "setup": [],
+      "steps": [
+        "clojure -M:test"
+      ],
+      "requiredRuntime": [
+        "pinned Java/Clojure runtime",
+        "review test entrypoint and offline Maven closure"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/fund.mithril.lib.interop": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Existing plugin installation, resolution and invocation tests",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [
+        "python -m pip install -e ."
+      ],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('tests',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [
+        "pinned editable build environment and immutable dependency archives"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/fund.mithril.lib.xml": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Existing plugin installation, resolution and invocation tests",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [
+        "python -m pip install -e ."
+      ],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('tests',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [
+        "pinned editable build environment and immutable dependency archives",
+        "reviewed schema fetch and offline schema closure"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/fund.mithril.lib.siso.link16": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Existing plugin installation, resolution and invocation tests",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [
+        "python -m pip install -e ."
+      ],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('tests',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [
+        "pinned editable build environment and immutable dependency archives"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/fund.mithril.lib.siso.c2sim": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Existing plugin installation, resolution and invocation tests",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [
+        "python -m pip install -e ."
+      ],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('tests',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [
+        "pinned editable build environment and immutable dependency archives"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/fund.mithril.lib.siso.msdl": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Existing plugin installation, resolution and invocation tests",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [
+        "python -m pip install -e ."
+      ],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('tests',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [
+        "pinned editable build environment and immutable dependency archives",
+        "opendis==1.0 and XML dependency closure"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    },
+    "mithril-lang/fund.mithril.lib.ieee.hla": {
+      "profile": "source",
+      "state": "runtime-required",
+      "scope": "Existing plugin installation, resolution and invocation tests",
+      "image": "python@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f",
+      "setup": [
+        "python -m pip install -e ."
+      ],
+      "steps": [
+        "python -c \"import unittest; s=unittest.defaultTestLoader.discover('tests',pattern='test_*.py'); assert s.countTestCases()>0, 'No tests discovered'; raise SystemExit(not unittest.TextTestRunner(verbosity=2).run(s).wasSuccessful())\""
+      ],
+      "requiredRuntime": [
+        "pinned editable build environment and immutable dependency archives",
+        "native C++/CMake/OpenRTI build and invocation"
+      ],
+      "release": {
+        "state": "held",
+        "gates": [
+          "service-specific owner",
+          "exact clean current main",
+          "scoped credential",
+          "signed artifacts",
+          "rollback or immutable prior release",
+          "live or installed-client read-back"
+        ]
+      }
+    }
+  }
+}

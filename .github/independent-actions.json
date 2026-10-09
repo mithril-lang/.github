@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "provider": "mithril-independent-actions",
+  "repository": "mithril-lang/.github",
+  "controller": {
+    "repository": "mithril-lang/.github",
+    "revision": "self",
+    "entrypoint": "tools/independent-actions/cli.mjs"
+  },
+  "profile": "source",
+  "scope": "Organization policy and shared runner contracts",
+  "state": "prepared",
+  "release": {
+    "state": "held",
+    "gates": [
+      "service-specific owner",
+      "exact clean current main",
+      "scoped credential",
+      "signed artifacts",
+      "rollback or immutable prior release",
+      "live or installed-client read-back"
+    ]
+  }
+}

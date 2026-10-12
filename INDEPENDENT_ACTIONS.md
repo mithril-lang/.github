@@ -66,13 +66,21 @@ and execution of latest main.
 | `mithril-lang/mithril` | runtime-required | Mithril compiler and native mission/library conformance | immutable Kbb/SCI/Amu and EDN inputs; Java/Clojure/Babashka runtimes; native HLA and pinned plugin archives |
 | `mithril-lang/mithril-app-core` | runtime-required | App-core repository-specific conformance | review current source test/build contract before runtime activation |
 | `mithril-lang/mithril-twin` | runtime-required | Viewer workspace tests, types and static build | locked Node workspace dependencies; immutable static publication and read-back |
-| `mithril-lang/loop-bench-index` | runtime-required | Clojure benchmark/catalog tests | pinned Java/Clojure runtime; review test entrypoint and offline Maven closure |
 | `mithril-lang/fund.mithril.lib.interop` | runtime-required | Existing plugin installation, resolution and invocation tests | pinned editable build environment and immutable dependency archives |
 | `mithril-lang/fund.mithril.lib.xml` | runtime-required | Existing plugin installation, resolution and invocation tests | pinned editable build environment and immutable dependency archives; reviewed schema fetch and offline schema closure |
 | `mithril-lang/fund.mithril.lib.siso.link16` | runtime-required | Existing plugin installation, resolution and invocation tests | pinned editable build environment and immutable dependency archives |
 | `mithril-lang/fund.mithril.lib.siso.c2sim` | runtime-required | Existing plugin installation, resolution and invocation tests | pinned editable build environment and immutable dependency archives |
 | `mithril-lang/fund.mithril.lib.siso.msdl` | runtime-required | Existing plugin installation, resolution and invocation tests | pinned editable build environment and immutable dependency archives; opendis==1.0 and XML dependency closure |
 | `mithril-lang/fund.mithril.lib.ieee.hla` | runtime-required | Existing plugin installation, resolution and invocation tests | pinned editable build environment and immutable dependency archives; native C++/CMake/OpenRTI build and invocation |
+
+## Retired repositories
+
+On 2026-10-12, `loop-bench-index` was consolidated into the private
+`mithril-lang/mithril-system-one` repository at `research/loop-bench-index/`.
+Its source history, branch refs and result artifacts are preserved there.
+The former repository is removed from active enrollment. System One retains
+its existing runtime requirements and release hold; consolidation does not
+activate the research harness or qualify a production release.
 
 ## Release and rollout
 

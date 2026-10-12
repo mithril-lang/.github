@@ -369,31 +369,6 @@
         ]
       }
     },
-    "mithril-lang/loop-bench-index": {
-      "profile": "source",
-      "state": "runtime-required",
-      "scope": "Clojure benchmark/catalog tests",
-      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
-      "setup": [],
-      "steps": [
-        "clojure -M:test"
-      ],
-      "requiredRuntime": [
-        "pinned Java/Clojure runtime",
-        "review test entrypoint and offline Maven closure"
-      ],
-      "release": {
-        "state": "held",
-        "gates": [
-          "service-specific owner",
-          "exact clean current main",
-          "scoped credential",
-          "signed artifacts",
-          "rollback or immutable prior release",
-          "live or installed-client read-back"
-        ]
-      }
-    },
     "mithril-lang/fund.mithril.lib.interop": {
       "profile": "source",
       "state": "runtime-required",

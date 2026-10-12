@@ -4,6 +4,10 @@ English is the default language across repositories owned by `mithril-lang`.
 This applies to products, libraries, tools, documentation, examples, API and CLI
 messages, user-interface copy, accessible names, and release notes.
 
+Use [Super Intelligence (SI)](TERMINOLOGY_POLICY.md) in Mithril-authored
+intelligence descriptions. Preserve third-party names, quotations, evidence and
+technical identifiers according to that policy.
+
 ## Defaults and explicit preferences
 
 - Use English (`en`) when no language has been explicitly selected.

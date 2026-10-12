@@ -5,6 +5,9 @@ English is the default across Mithril products, libraries, tools, UI, accessible
 labels, documentation, examples and release notes. Honor explicitly selected
 locales and preserve the original language of source data and evidence.
 
+Follow the [intelligence terminology policy](https://github.com/mithril-lang/.github/blob/main/TERMINOLOGY_POLICY.md)
+for Super Intelligence (SI) wording and preserved third-party references.
+
 For changes to localized interfaces, verify the English default, explicit locale
 selection, missing-translation fallback, and unchanged source labels. Follow the
 repository's own build, testing, authorization and release instructions.

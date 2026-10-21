@@ -4,7 +4,7 @@ import {readFileSync,writeFileSync,mkdirSync,lstatSync,existsSync,openSync,close
 import {resolve,dirname,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomBytes} from 'node:crypto';
-import {adapter,validateAdapter,originRepository,revision,digest,transport,seal,executable} from './core.mjs';
+import {adapter,validateAdapter,selectProfile,originRepository,revision,digest,transport,seal,executable} from './core.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const catalogue = JSON.parse(readFileSync(join(root,'tools/independent-actions/repositories.json'),'utf8'));
 function run(cmd,args,options={}) {
@@ -16,17 +16,17 @@ const git=(cwd,...args)=>run('git',['-C',cwd,...args]).trim();
 const opts={}; const [command,...argv]=process.argv.slice(2);
 try {
   for(let i=0;i<argv.length;i+=2) { if(!argv[i].startsWith('--') || !argv[i+1] || argv[i+1].startsWith('--')) throw Error('Expected --name value'); opts[argv[i].slice(2)]=argv[i+1]; }
-  for(const name of Object.keys(opts)) if(!['repository','controller-revision','checkout','reviewed-sha','host','state'].includes(name)) throw Error(`Unknown option: ${name}`);
+  for(const name of Object.keys(opts)) if(!['repository','profile','controller-revision','checkout','reviewed-sha','host','state'].includes(name)) throw Error(`Unknown option: ${name}`);
   if(command==='list') { console.log(JSON.stringify(catalogue,null,2)); }
   else if(command==='adapter') {
-    const entry=catalogue.repositories[opts.repository]; if(!entry) throw Error('Repository not enrolled');
+    const entry=selectProfile(catalogue,opts.repository,opts.profile);
     console.log(JSON.stringify(adapter(opts.repository,opts['controller-revision'],entry),null,2));
   } else if(['plan','check-adapter','verify'].includes(command)) {
     const checkout=realpathSync(resolve(opts.checkout || '.'));
     const repository=originRepository(git(checkout,'remote','get-url','origin'));
-    const entry=catalogue.repositories[repository]; if(!entry) throw Error('Repository not enrolled');
     const controllerRevision=git(root,'rev-parse','HEAD');
     const value=JSON.parse(readFileSync(join(checkout,'.github/independent-actions.json'),'utf8'));
+    const entry=selectProfile(catalogue,repository,value.profile);
     validateAdapter(value,repository,controllerRevision,entry);
     const sha=git(checkout,'rev-parse','HEAD');
     if(command!=='verify') console.log(JSON.stringify({repository,sha,controllerRevision,...entry},null,2));
@@ -70,5 +70,5 @@ try {
         closeSync(lockFd); unlinkSync(lock);
       }
     }
-  } else throw Error('Usage: cli.mjs list | adapter --repository NAME --controller-revision SHA | plan/check-adapter/verify --checkout PATH [--reviewed-sha SHA --host SSH_ALIAS --state PRIVATE_PATH]');
+  } else throw Error('Usage: cli.mjs list | adapter --repository NAME [--profile NAME] --controller-revision SHA | plan/check-adapter/verify --checkout PATH [--reviewed-sha SHA --host SSH_ALIAS --state PRIVATE_PATH]');
 } catch(error) { console.error(error.message); process.exitCode=1; }

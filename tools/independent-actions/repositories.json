@@ -295,27 +295,58 @@
       }
     },
     "mithril-lang/mithril": {
-      "profile": "source",
-      "state": "runtime-required",
-      "scope": "Mithril compiler and native mission/library conformance",
-      "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
-      "setup": [],
-      "steps": [],
-      "requiredRuntime": [
-        "immutable Kbb/SCI/Amu and EDN inputs",
-        "Java/Clojure/Babashka runtimes",
-        "native HLA and pinned plugin archives"
-      ],
-      "release": {
-        "state": "held",
-        "gates": [
-          "service-specific owner",
-          "exact clean current main",
-          "scoped credential",
-          "signed artifacts",
-          "rollback or immutable prior release",
-          "live or installed-client read-back"
-        ]
+      "defaultProfile": "source",
+      "profiles": {
+        "source": {
+          "profile": "source",
+          "state": "runtime-required",
+          "scope": "Mithril compiler and native mission/library conformance",
+          "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+          "setup": [],
+          "steps": [],
+          "requiredRuntime": [
+            "immutable Kbb/SCI/Amu and EDN inputs",
+            "Java/Clojure/Babashka runtimes",
+            "native HLA and pinned plugin archives"
+          ],
+          "release": {
+            "state": "held",
+            "gates": [
+              "service-specific owner",
+              "exact clean current main",
+              "scoped credential",
+              "signed artifacts",
+              "rollback or immutable prior release",
+              "live or installed-client read-back"
+            ]
+          }
+        },
+        "mithrilpress-worker": {
+          "profile": "mithrilpress-worker",
+          "state": "prepared",
+          "scope": "MithrilPress Worker unit and owner-auth integration, D1 migrations, and JavaScript syntax checks",
+          "image": "node@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0",
+          "setup": [
+            "npm ci --prefix apps/mithrilpress-worker --ignore-scripts --no-audit --no-fund"
+          ],
+          "steps": [
+            "node --test apps/mithrilpress-worker/src/*.test.js",
+            "for file in apps/mithrilpress-worker/src/*.js apps/mithrilpress-worker/public/*.js apps/mithrilpress-worker/scripts/*.mjs; do node --check \"$file\"; done",
+            "node apps/mithrilpress-worker/scripts/qualify-owner-auth.mjs"
+          ],
+          "requiredRuntime": [],
+          "release": {
+            "state": "held",
+            "gates": [
+              "service-specific owner",
+              "exact clean current main",
+              "scoped credential",
+              "signed artifacts",
+              "rollback or immutable prior release",
+              "live or installed-client read-back"
+            ]
+          }
+        }
       }
     },
     "mithril-lang/mithril-app-core": {

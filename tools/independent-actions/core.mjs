@@ -2,6 +2,22 @@ import {createHash, createHmac, timingSafeEqual} from 'node:crypto';
 
 export const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 export const revision = value => typeof value === 'string' && /^[a-f0-9]{40}$/.test(value);
+export function selectProfile(catalogue, repository, profile) {
+  const entry = catalogue?.repositories?.[repository];
+  if (!entry || typeof entry !== 'object' || Array.isArray(entry)) throw Error('Repository not enrolled');
+  if (Object.prototype.hasOwnProperty.call(entry, 'profiles')) {
+    const profiles = entry.profiles;
+    if (!profiles || typeof profiles !== 'object' || Array.isArray(profiles)) throw Error('Invalid repository profile catalogue');
+    const selectedName = profile ?? entry.defaultProfile;
+    if (typeof selectedName !== 'string' || !selectedName) throw Error('Explicit profile required for this repository');
+    if (!Object.prototype.hasOwnProperty.call(profiles, selectedName)) throw Error('Profile not enrolled for repository');
+    const selected = profiles[selectedName];
+    if (!selected || typeof selected !== 'object' || selected.profile !== selectedName) throw Error('Profile catalogue identity mismatch');
+    return selected;
+  }
+  if (profile !== undefined && profile !== entry.profile) throw Error('Profile not enrolled for repository');
+  return entry;
+}
 export function adapter(repository, controllerRevision, entry) {
   if (!revision(controllerRevision) && !(repository === 'mithril-lang/.github' && controllerRevision === 'self')) throw Error('Immutable controller revision required');
   return {schemaVersion:1, provider:'mithril-independent-actions', repository,
@@ -37,5 +53,9 @@ export function verify(envelope, key, identity, now = Date.now()) {
   return envelope.receipt;
 }
 export function executable(entry) {
-  if (entry.state !== 'prepared' || entry.setup.some(step => step !== 'npm ci --ignore-scripts --no-audit --no-fund') || !entry.steps.length || !/^(node|python)@sha256:[a-f0-9]{64}$/.test(entry.image)) throw Error(`Profile held: ${entry.state}; ${entry.requiredRuntime.join('; ')}`);
+  const allowedSetup = new Set([
+    'npm ci --ignore-scripts --no-audit --no-fund',
+    'npm ci --prefix apps/mithrilpress-worker --ignore-scripts --no-audit --no-fund',
+  ]);
+  if (entry.state !== 'prepared' || entry.setup.some(step => !allowedSetup.has(step)) || !entry.steps.length || !/^(node|python)@sha256:[a-f0-9]{64}$/.test(entry.image)) throw Error(`Profile held: ${entry.state}; ${entry.requiredRuntime.join('; ')}`);
 }

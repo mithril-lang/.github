@@ -1,0 +1,22 @@
+version: 2.1
+jobs:
+  checkout-verification:
+    docker:
+      - image: cimg/base:2026.01
+    steps:
+      - checkout
+      - run:
+          name: Verify checkout and record source identity
+          command: |
+            set -eu
+            test "$(git rev-parse HEAD)" = "$CIRCLE_SHA1"
+            test -z "$(git status --porcelain)"
+            mkdir -p /tmp/checkout-evidence
+            git rev-parse HEAD > /tmp/checkout-evidence/source-commit.txt
+      - store_artifacts:
+          path: /tmp/checkout-evidence
+          destination: checkout-evidence
+workflows:
+  checkout-verification:
+    jobs:
+      - checkout-verification

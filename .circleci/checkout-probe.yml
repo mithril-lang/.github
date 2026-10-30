@@ -13,7 +13,6 @@ jobs:
             test -z "$(git status --porcelain)"
             mkdir -p /tmp/checkout-evidence
             git rev-parse HEAD > /tmp/checkout-evidence/source-commit.txt
-            git remote get-url origin | sed -E 's#(https?://)[^/@]+@#\1#' > /tmp/checkout-evidence/source-origin.txt
       - store_artifacts:
           path: /tmp/checkout-evidence
           destination: checkout-evidence
